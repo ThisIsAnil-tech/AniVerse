@@ -1,7 +1,13 @@
 from flask import Blueprint, request, jsonify, current_app
-from ...services.llm.ollama import OllamaProvider
-from ...services.rag.vector_store import VectorStoreService
-from ...services.prompt.orchestrator import PromptOrchestrator
+
+try:
+    from app.services.llm.ollama import OllamaProvider
+    from app.services.rag.vector_store import VectorStoreService
+    from app.services.prompt.orchestrator import PromptOrchestrator
+except ImportError:
+    from ...services.llm.ollama import OllamaProvider
+    from ...services.rag.vector_store import VectorStoreService
+    from ...services.prompt.orchestrator import PromptOrchestrator
 
 assistant_bp = Blueprint("assistant", __name__)
 

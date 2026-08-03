@@ -1,12 +1,29 @@
+# Node.js
 node_modules/
-.env
-*.log
+backend/node_modules/
+frontend/node_modules/
+
+# Python Virtual Environments
+venv/
+.venv/
+ai-service/venv/
+ai-service/.venv/
+
+# Build & Cache Outputs
 dist/
+build/
 coverage/
 .pytest_cache/
 __pycache__/
 *.pyc
+
+# Environment Files
+.env
+.env.local
+
+# Databases, Storage & Logs
 chroma_db/
 uploads/
 logs/
+*.log
 .DS_Store
