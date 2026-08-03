@@ -1,7 +1,7 @@
 import React from 'react';
-import { Bot, Search, Sparkles } from 'lucide-react';
+import { Bot, Search, Sparkles, Shield } from 'lucide-react';
 
-export default function Navbar({ onOpenSearch, onToggleAI }) {
+export default function Navbar({ onOpenSearch, onToggleAI, onToggleAdmin }) {
   return (
     <header style={{
       position: 'sticky',
@@ -49,7 +49,24 @@ export default function Navbar({ onOpenSearch, onToggleAI }) {
         </nav>
 
         {/* Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button
+            onClick={onToggleAdmin}
+            style={{
+              padding: '10px',
+              borderRadius: '50%',
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            title="Admin Control Center"
+          >
+            <Shield size={18} />
+          </button>
+
           {/* Universal Search trigger */}
           <button 
             onClick={onOpenSearch}
@@ -62,7 +79,6 @@ export default function Navbar({ onOpenSearch, onToggleAI }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              transition: 'all var(--transition-fast)',
             }}
             title="Universal Search"
           >

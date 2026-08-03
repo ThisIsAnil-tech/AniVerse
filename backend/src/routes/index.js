@@ -11,6 +11,8 @@ const analyticsRoutes = require('./v1/analytics.routes');
 const emailRoutes = require('./v1/email.routes');
 const uploadRoutes = require('./v1/upload.routes');
 const settingsRoutes = require('./v1/settings.routes');
+const seoRoutes = require('./v1/seo.routes');
+const securityRoutes = require('./v1/security.routes');
 
 router.use('/auth', authRoutes);
 router.use('/content', contentRoutes);
@@ -22,5 +24,7 @@ router.use('/analytics', analyticsRoutes);
 router.use('/email', emailRoutes);
 router.use('/upload', uploadRoutes);
 router.use('/settings', settingsRoutes);
+router.use('/seo', seoRoutes);
+router.use('/security', securityRoutes);
 
 module.exports = router;

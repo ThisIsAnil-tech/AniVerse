@@ -10,16 +10,23 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import UniversalSearchModal from './components/UniversalSearchModal';
 import AIChatDrawer from './components/AIChatDrawer';
+import AdminLayout from './components/admin/AdminLayout';
 
 export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAIOpen, setIsAIOpen] = useState(false);
+  const [isAdminView, setIsAdminView] = useState(false);
+
+  if (isAdminView) {
+    return <AdminLayout onBackToSite={() => setIsAdminView(false)} />;
+  }
 
   return (
     <div className="app-layout">
       <Navbar 
         onOpenSearch={() => setIsSearchOpen(true)} 
         onToggleAI={() => setIsAIOpen((prev) => !prev)} 
+        onToggleAdmin={() => setIsAdminView(true)}
       />
       <main>
         <Hero />
