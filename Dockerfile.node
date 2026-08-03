@@ -1,0 +1,18 @@
+# Multi-stage Dockerfile for Node.js Backend Gateway
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY backend/package*.json ./
+RUN npm ci
+COPY backend/ ./
+RUN npm run build --if-present
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+NODE_ENV production
+COPY backend/package*.json ./
+RUN npm ci --only=production
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/docs ./docs
+
+EXPOSE 5000
+CMD ["node", "src/server.js"]

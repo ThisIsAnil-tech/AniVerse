@@ -1,0 +1,12 @@
+node_modules/
+.env
+*.log
+dist/
+coverage/
+.pytest_cache/
+__pycache__/
+*.pyc
+chroma_db/
+uploads/
+logs/
+.DS_Store

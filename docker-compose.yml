@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    container_name: portfolio_backend
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/portfolio_db
+      - REDIS_URL=redis://redis:6379
+      - AI_SERVICE_URL=http://ai-service:5001
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+      - redis
+      - ai-service
+    networks:
+      - portfolio_net
+
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile.flask
+    container_name: portfolio_ai_service
+    restart: always
+    environment:
+      - FLASK_ENV=production
+      - PORT=5001
+      - OLLAMA_BASE_URL=http://ollama:11434
+    ports:
+      - "5001:5001"
+    depends_on:
+      - ollama
+    networks:
+      - portfolio_net
+
+  mongodb:
+    image: mongo:7.0
+    container_name: portfolio_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - portfolio_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: portfolio_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - portfolio_net
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: portfolio_ollama
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - portfolio_net
+
+networks:
+  portfolio_net:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  redis_data:
+  ollama_data:
